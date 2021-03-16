@@ -33,4 +33,4 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "order-validation-serve-v1"
-          heroku_email: ${{secrets.PERSONAL_EMAIL}
+          heroku_email: ${{secrets.PERSONAL_EMAIL}}
