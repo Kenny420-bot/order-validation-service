@@ -15,10 +15,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
 
       - name: Set up JDK
-        run: sudo apt update & sudo apt install openjdk-15-jdk -y
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 15
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -30,5 +33,5 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "order-validation-serve-v1"
+          heroku_app_name: 'order-validation-serve-v1'
           heroku_email: ${{secrets.PERSONAL_EMAIL}}
