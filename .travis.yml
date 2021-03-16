@@ -1,0 +1,21 @@
+language: java
+
+jdk:
+  - openjdk15
+
+script:
+  - /gradlew build --scan -s
+
+sudo: true
+
+before_install: chmod +x gradlew
+
+jobs:
+  include:
+    - stage: test
+      script: ./gradlew clean test
+
+deploy:
+  provider: heroku
+  api_key: uGgjwR-3AxdNGyMGvQV5pA
+  app: order-validation-service-v1
