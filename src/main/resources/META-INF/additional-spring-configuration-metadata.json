@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "redis.trading-topic",
+      "type": "java.lang.String",
+      "description": "Description for redis.trading-topic."
+  }
+] }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.kepf.com/ordervalidation/soap/api"
+            targetNamespace="http://www.kepf.com/ordervalidation/soap/api"
+            elementFormDefault="qualified">
+
+
+    <xs:element name="CustomerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product" type="xs:string" />
+                <xs:element name="quantity" type="xs:int" />
+                <xs:element name="price" type="xs:double" />
+                <xs:element name="side" type="xs:string" />
+                <xs:element name="customerId" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CustomerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="isValid" type="xs:boolean" />
+                <xs:element name="reason" type="xs:string" />
+                <xs:element name="orderId" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
