@@ -1,8 +1,8 @@
 package com.kepf.ordervalidator.soap.api.endpoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kepf.order_validation.soap.api.CustomerRequest;
-import com.kepf.order_validation.soap.api.CustomerResponse;
+import com.kepf.ordervalidation.soap.api.CustomerRequest;
+import com.kepf.ordervalidation.soap.api.CustomerResponse;
 import com.kepf.ordervalidator.soap.api.service.OrderValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;

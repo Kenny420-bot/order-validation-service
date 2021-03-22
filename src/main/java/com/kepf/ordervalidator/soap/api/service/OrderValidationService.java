@@ -1,7 +1,7 @@
 package com.kepf.ordervalidator.soap.api.service;
 
-import com.kepf.order_validation.soap.api.CustomerRequest;
-import com.kepf.order_validation.soap.api.CustomerResponse;
+import com.kepf.ordervalidation.soap.api.CustomerRequest;
+import com.kepf.ordervalidation.soap.api.CustomerResponse;
 import org.springframework.stereotype.Service;
 
 @Service
