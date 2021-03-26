@@ -1,8 +1,10 @@
 package com.kepf.ordervalidator.soap.api.endpoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kepf.ordervalidation.soap.api.CustomerRequest;
 import com.kepf.ordervalidation.soap.api.CustomerResponse;
+import com.kepf.ordervalidator.redis.config.RedisConfig;
 import com.kepf.ordervalidator.soap.api.service.OrderValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -18,17 +20,21 @@ public class OrderValidationEndpoint {
     @Autowired
     private OrderValidationService service;
 
+    @Autowired
+    private RedisConfig redisConfig;
+
     @PayloadRoot(namespace = NAMESPACE, localPart = "CustomerRequest")
     @ResponsePayload
     public CustomerResponse getOrderStatus(@RequestPayload CustomerRequest request) throws JsonProcessingException {
         CustomerResponse response = service.validateOrder(request);
-//        ObjectMapper mapper = new ObjectMapper();
-//        String responseString = mapper.writeValueAsString(response);
-//        System.out.println("publishing to reporting service.....");
-//
-//        String tradeRequest = mapper.writeValueAsString(request);
-//        redisTemplate.convertAndSend(reportingTopic.getTopic(), responseString);
-//        redisTemplate.convertAndSend(tradingTopic.getTopic(), tradeRequest);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        if(response.isIsValid()){
+            String tradeRequest = mapper.writeValueAsString(request);
+            redisConfig.redisTemplate().convertAndSend(redisConfig.tradingTopic().getTopic(), tradeRequest);
+        }
+
         System.out.println("Sending soap response........");
         return response;
     }
