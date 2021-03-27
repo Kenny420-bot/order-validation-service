@@ -1,23 +1,21 @@
 package com.kepf.ordervalidator.service;
 
 import com.kepf.ordervalidator.model.MarketData;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class MarketDataService {
 
+    @Autowired
+    WebClient.Builder webClientBuilder;
     public MarketData getMarketData(String product){
-        RestTemplate restTemplate = new RestTemplateBuilder().build();
-        String URL = "http://exchange.matraining.com/md/"+product;
-        return restTemplate.getForObject(URL, MarketData.class);
-    }
+        String URL = "https://exchange.matraining.com/md/"+product;
+        return webClientBuilder.build().get().uri(URL)
+                .retrieve()
+                .bodyToMono(MarketData.class).block();
 
-//    @Bean
-//    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
-//        return restTemplateBuilder.build();
-//    }
+    }
 
 }

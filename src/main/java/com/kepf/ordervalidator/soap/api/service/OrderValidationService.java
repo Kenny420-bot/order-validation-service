@@ -9,8 +9,6 @@ import com.kepf.ordervalidator.service.MarketDataService;
 import com.kepf.ordervalidator.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
 @Service
@@ -31,36 +29,41 @@ public class OrderValidationService {
         MarketData marketData = marketDataService.getMarketData(request.getProduct());
         double customerBalance = customerService.getCustomerBalance(request.getCustomerId());
         List<Portfolio>userPortfolios = portfolioService.getPortfolios(request.getCustomerId());
+        
+        if(request.getSide().toUpperCase().equals("BUY")){
+            response.setIsValid(confirmBuyOrder(request, customerBalance, marketData));
+        }else{
+            response.setIsValid(confirmSellOrder(request,userPortfolios,marketData));
 
-        if(request.getSide().equals("BUY")){
-
-            response.setIsValid(confirmBuyOrder(request, customerBalance));
-
-        }else if(request.getSide().equals("SELL")){
-
-            for (Portfolio portfolio : userPortfolios){
-
-                if (portfolio.getProduct().equals(request.getProduct())){
-
-                    double reasonable_price_check = marketData.getBID_PRICE();
-                    double reasonable_price_high_range = reasonable_price_check +  0.20;
-//                    double reasonable_price_low_range  = reasonable_price_check - 0.20;
-
-                    response.setIsValid(request.getPrice()>reasonable_price_high_range );
-
-                }
-            }
         }
 
         return response;
     }
 
-    public boolean confirmBuyOrder(CustomerRequest request, double customerBalance){
-        return customerBalance > (request.getQuantity() * request.getPrice());
+    public boolean confirmBuyOrder(CustomerRequest request, double customerBalance, MarketData marketData){
+        double shift_price = marketData.getMax_price_shift();
+        double last_buy_price = marketData.getAsk_price()+shift_price;
+        double minimum_buy_price = last_buy_price-shift_price;
+
+        return (customerBalance > (request.getQuantity() * request.getPrice()))&&
+                (request.getQuantity()<=marketData.getBuy_limit())&&
+                ( request.getPrice()>=minimum_buy_price&&request.getPrice()<=last_buy_price);
     }
 
-    public boolean confirmSellOrder(){
-        return true;
+    public boolean confirmSellOrder(CustomerRequest request,List<Portfolio>userPortfolios, MarketData marketData){
+        boolean statusResponse = false;
+
+        for (Portfolio portfolio : userPortfolios){
+            double last_sell_price = marketData.getBid_price()+marketData.getMax_price_shift();
+            double minimum_sell_price = marketData.getBid_price()-marketData.getMax_price_shift();
+
+                if (portfolio.getProduct().equals(request.getProduct())) {
+                    statusResponse = (request.getQuantity() <= portfolio.getQuantity()) &&
+                            (request.getQuantity() <= marketData.getSell_limit()) &&
+                            (request.getPrice() >= minimum_sell_price && request.getPrice() <= last_sell_price);
+                }
+        }
+        return statusResponse;
     }
 
 

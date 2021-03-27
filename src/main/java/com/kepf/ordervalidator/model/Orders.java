@@ -17,16 +17,32 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private String exchange_order_id;
+
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn( referencedColumnName = "id")
     private Customer customer;
-    private String product;
-    private double price;
-    private int quantity;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
     private String side;
-    private boolean is_valid;
-    private boolean is_pending;
-    private boolean is_success;
+
+    @Column(nullable = false)
+    private String product;
+
+    @Column(columnDefinition = "boolean  default false")
+    private Boolean is_valid;
+
+    @Column(columnDefinition = "boolean  default true")
+    private Boolean is_pending;
+
+    @Column(columnDefinition = "boolean  default false")
+    private Boolean is_success;
 
 
 }

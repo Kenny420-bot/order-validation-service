@@ -2,9 +2,10 @@ package com.kepf.ordervalidator.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,22 +15,40 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false, length = 50)
     private String first_name;
+    @Column(nullable = false, length = 50)
     private String last_name;
+    @Column(nullable = false, unique = true)
+
     private String email;
+
+    @Column(nullable = false, length = 255)
+
     private String password;
-    private double account_balance;
-    private boolean is_active;
+    @Column(columnDefinition = " DOUBLE PRECISION default 0.0 ")
+    private Double account_balance;
+
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
+   // @LazyCollection(LazyCollectionOption.FALSE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Orders> orders;
 
+
     @OneToMany(mappedBy = "customer")
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private List<Portfolio> portfolios;
+
 }
