@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PortfolioRepository extends JpaRepository<Portfolio, Integer> {
     @Query("SELECT p FROM portfolio p WHERE p.customer.id = ?1")
-    List<Portfolio> findByCustomerId(Integer customerId);
+    List<Portfolio> getCustomerPortfolio(Integer customerId);
 }
