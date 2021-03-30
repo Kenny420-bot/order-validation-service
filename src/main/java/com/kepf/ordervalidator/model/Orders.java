@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "orders")
 @Table
@@ -43,6 +46,12 @@ public class Orders {
 
     @Column(columnDefinition = "boolean  default false")
     private Boolean is_success;
+
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
 
 }

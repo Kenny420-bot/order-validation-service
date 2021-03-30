@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +28,10 @@ public class Portfolio {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Customer customer;
+
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 }
