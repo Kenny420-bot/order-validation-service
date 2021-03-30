@@ -9,4 +9,5 @@ redis:
   hostname:  redis-14149.c258.us-east-1-4.ec2.cloud.redislabs.com
   port: 14149
   username: Phelim
-  password : PTAgcoep25rghJlVAp7co1zOs6mZS3vo
+  password: Phelim@54
+#  password : PTAgcoep25rghJlVAp7co1zOs6mZS3vo

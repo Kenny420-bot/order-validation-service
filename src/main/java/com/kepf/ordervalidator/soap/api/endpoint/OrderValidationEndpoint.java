@@ -48,7 +48,7 @@ public class OrderValidationEndpoint {
         if(response.isIsValid()){
 
             String tradeRequest = mapper.writeValueAsString(request);
-            redisConfig.redisTemplate().convertAndSend(redisConfig.tradingTopic().getTopic(), tradeRequest);
+            redisConfig.redisTemplate().convertAndSend("Incoming Orders", tradeRequest);
             orderService.createNewOrder(newOrder);
 
         }
