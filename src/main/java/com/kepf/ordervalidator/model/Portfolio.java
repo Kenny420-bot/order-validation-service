@@ -28,7 +28,11 @@ public class Portfolio {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Customer customer;
+    @CreationTimestamp
+    private LocalDateTime created_at;
 
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
 
 }
