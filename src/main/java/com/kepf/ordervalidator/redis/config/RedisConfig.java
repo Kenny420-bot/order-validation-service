@@ -23,12 +23,14 @@ public class RedisConfig {
     private String USERNAME;
 
     @Value("{redis.password}")
-    private String password;
+    private String PASSWORD;
 
 
     @Bean
     public JedisConnectionFactory connectionFactory(){
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(HOST_NAME, PORT);
+        config.setUsername(USERNAME);
+        config.setPassword(PASSWORD);
         return new JedisConnectionFactory(config);
     }
 

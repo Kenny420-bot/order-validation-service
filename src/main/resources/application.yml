@@ -6,7 +6,7 @@ spring:
     name: order-validation
 
 redis:
-  hostname: db-redis-lon1-51425-do-user-8998399-0.b.db.ondigitalocean.com
-  port: 25061
-  username: default
-  password : cs0cq6gw7sj9cb4q
+  hostname:  redis-14149.c258.us-east-1-4.ec2.cloud.redislabs.com
+  port: 14149
+  username: Phelim
+  password : PTAgcoep25rghJlVAp7co1zOs6mZS3vo
