@@ -25,4 +25,6 @@ public class Portfolio {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Customer customer;
+
+
 }

@@ -19,6 +19,7 @@ public class CustomerService {
         custObj.orElseThrow(IllegalArgumentException::new);
         return custObj.get().getAccount_balance();
     }
+
     public Customer getCustomer(int id){
         Optional<Customer> customer = customerRepository.findById( id);
         if (customer.isEmpty())

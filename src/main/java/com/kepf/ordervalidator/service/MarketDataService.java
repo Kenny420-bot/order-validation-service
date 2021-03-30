@@ -10,8 +10,11 @@ public class MarketDataService {
 
     @Autowired
     WebClient.Builder webClientBuilder;
+
     public MarketData getMarketData(String product){
-        String URL = "https://exchange.matraining.com/md/"+product;
+
+        String URL = "https://exchange.matraining.com/md/" + product;
+
         return webClientBuilder.build().get().uri(URL)
                 .retrieve()
                 .bodyToMono(MarketData.class).block();

@@ -17,15 +17,18 @@ public class SoapWSConfig {
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext context) {
+
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(context);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/ws/*");
+
     }
 
 
     @Bean(name = "orderValidation")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
+
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
         defaultWsdl11Definition.setPortTypeName("OrderValidator");
         defaultWsdl11Definition.setLocationUri("/ws");
@@ -37,7 +40,9 @@ public class SoapWSConfig {
 
     @Bean
     public XsdSchema schema() {
+
         return new SimpleXsdSchema(new ClassPathResource("order.xsd"));
+
     }
 
 }
