@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -45,6 +46,12 @@ public class Orders {
 
     @Column(columnDefinition = "boolean  default false")
     private Boolean is_success;
+
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
 
 
