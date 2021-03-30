@@ -16,4 +16,5 @@ public class PortfolioService {
     public List<Portfolio> getPortfolios(Integer customerId){
         return portfolioRepository.getCustomerPortfolio(customerId);
     }
+
 }

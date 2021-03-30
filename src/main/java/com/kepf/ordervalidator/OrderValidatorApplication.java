@@ -13,15 +13,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 public class OrderValidatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OrderValidatorApplication.class, args);
-	}
-
 
 	@Bean
 	public WebClient.Builder getWebclientBuilder(){
 
 		return WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+	}
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(OrderValidatorApplication.class, args);
+
 	}
 
 
