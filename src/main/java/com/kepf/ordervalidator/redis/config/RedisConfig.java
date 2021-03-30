@@ -19,6 +19,12 @@ public class RedisConfig {
     @Value("${redis.port}")
     private int PORT;
 
+    @Value("${redis.username}")
+    private String USERNAME;
+
+    @Value("{redis.password}")
+    private String password;
+
 
     @Bean
     public JedisConnectionFactory connectionFactory(){
@@ -36,8 +42,7 @@ public class RedisConfig {
 
     @Bean
     public ChannelTopic tradingTopic() {
-        return new ChannelTopic("orderValidationService");
+        return new ChannelTopic("Incoming Orders");
     }
-
 
 }

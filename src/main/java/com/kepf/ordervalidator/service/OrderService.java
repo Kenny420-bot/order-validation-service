@@ -13,7 +13,9 @@ public class OrderService {
 
     @Async
     public void createNewOrder(Orders orders){
+
         orderRepository.save(orders);
+
     }
 
 }

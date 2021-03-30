@@ -6,6 +6,7 @@ spring:
     name: order-validation
 
 redis:
-  hostname: localhost
-  port: 6379
-
+  hostname: db-redis-lon1-51425-do-user-8998399-0.b.db.ondigitalocean.com
+  port: 25061
+  username: default
+  password : cs0cq6gw7sj9cb4q
