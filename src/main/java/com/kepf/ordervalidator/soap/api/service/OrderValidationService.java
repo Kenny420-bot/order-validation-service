@@ -42,8 +42,8 @@ public class OrderValidationService {
 
     public boolean confirmBuyOrder(CustomerRequest request, double customerBalance, MarketData marketData){
         double shift_price        = marketData.getMax_price_shift();
-        double last_buy_price     = marketData.getAsk_price()+shift_price;
-        double minimum_buy_price  = last_buy_price-shift_price;
+        double last_buy_price     = marketData.getBid_price()+shift_price;
+        double minimum_buy_price  = marketData.getBid_price()-shift_price;
 
         return (customerBalance > (request.getQuantity() * request.getPrice()))&&
                 (request.getQuantity()<=marketData.getBuy_limit()) &&
@@ -55,8 +55,8 @@ public class OrderValidationService {
         boolean statusResponse = false;
 
         for (Portfolio portfolio : userPortfolios){
-            double last_sell_price = marketData.getBid_price()+marketData.getMax_price_shift();
-            double minimum_sell_price = marketData.getBid_price()-marketData.getMax_price_shift();
+            double last_sell_price = marketData.getAsk_price()+marketData.getMax_price_shift();
+            double minimum_sell_price = marketData.getAsk_price()-marketData.getMax_price_shift();
 
                 if (portfolio.getProduct().equals(request.getProduct())) {
                     statusResponse = (request.getQuantity() <= portfolio.getQuantity()) &&
